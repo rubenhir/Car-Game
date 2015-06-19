@@ -24,7 +24,6 @@ SDLEntity::~SDLEntity() {
 }
 
 
-
 void SDLEntity::MediaPath(string path){
 	this->path = path;
 }
@@ -40,9 +39,10 @@ void SDLEntity::Update(a::ADisplayControl *_video){
 }
 
 void SDLEntity::Free(a::ADisplayControl *_video){
-
+	_video->free();
 }
 
 void SDLEntity::position(int x, int y){
-
+	this->x = x;
+	this->y = y;
 }

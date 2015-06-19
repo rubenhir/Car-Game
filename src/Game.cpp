@@ -43,7 +43,7 @@
 
 				gDisplayControl->free();
 
-				//background(); //moving bg!
+				background(); //moving bg!
 
 				gEventControl->delay();
 				gEventControl->handleEvents();
@@ -101,9 +101,9 @@
 		_Entities.push_back(gBG[0]);
 		cout << "Pushed back" << endl;
 
-		//gBG[1] = aFact->getEntity("background", 0, 0);
-		//gBG[1]->Visualize(gDisplayControl);
-		//_Entities.push_back(gBG[1]);
+		gBG[1] = aFact->getEntity("background", 0, 0);
+		gBG[1]->Visualize(gDisplayControl);
+		_Entities.push_back(gBG[1]);
 
 
 

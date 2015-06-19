@@ -18,6 +18,7 @@ SDLDisplayControl::SDLDisplayControl(SDLFact *fact) {
 	type = "";
 	this->sdlfact = fact;
 	_dest = NULL;
+	_surface = NULL;
 }
 
 SDLDisplayControl::~SDLDisplayControl() {
@@ -25,31 +26,32 @@ SDLDisplayControl::~SDLDisplayControl() {
 	free();
 }
 
-bool SDLDisplayControl::loadMedia(string path, string type)
-{
+bool SDLDisplayControl::loadMedia(string path, string type){
 
 	printf( "testdispcontr");
 	this->type = type;
 	//Load image at specified path
-	_surface = IMG_Load( path.c_str() );
-	if( _surface == NULL )
+	cout << path << endl;
+	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+	cout << loadedSurface << endl;
+	if( loadedSurface == NULL )
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
 	else{
 		//Color key image
-		SDL_SetColorKey( _surface, SDL_TRUE, SDL_MapRGB( _surface->format, 0, 0xFF, 0xFF ) );
+		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
 
 		//Create texture from surface pixels
-		mTexture = SDL_CreateTextureFromSurface(sdlfact->getgRenderer(), _surface );
+		mTexture = SDL_CreateTextureFromSurface(sdlfact->getgRenderer(), loadedSurface );
 		if( mTexture == NULL )
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		else{
 			//Get image dimensions
-			mWidth = _surface->w;
-			mHeight = _surface->h;
+			mWidth = loadedSurface->w;
+			mHeight = loadedSurface->h;
 		}
 
 		//Get rid of old loaded surface
-		SDL_FreeSurface( _surface );
+		SDL_FreeSurface( loadedSurface );
 	}
 	//Return success
 	return mTexture != NULL;
