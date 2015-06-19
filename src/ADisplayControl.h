@@ -20,18 +20,19 @@ public:
 	virtual ~ADisplayControl(){}
 
 	//Loads image at specified path
-	virtual bool loadMedia(std::string path)=0;
+	virtual bool loadMedia(std::string path, std::string type)=0;
 	virtual void putrender()=0;
 
 	//Deallocates texture
 	virtual void free()=0;
 
 	//Renders texture at given point
-	virtual void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE )=0;
+	virtual void render(int x, int y)=0;
 
 	//Gets image dimensions
 	virtual int getWidth()=0;
 	virtual int getHeight()=0;
+
 };
 
 

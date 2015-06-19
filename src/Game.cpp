@@ -24,15 +24,16 @@
 
 
 	void Game::Init(){
+		cout << "game Init \n" << endl;
 		aFact->init(792, 600);
-		std::cout << "Init game \n";
+
 	}
 
 	void Game::Start(){
-		cout << "Test";
+		cout << "Test" << endl;
 		a::AEntity *car = aFact->getEntity("car", 450, 500);
 		car->Visualize(gDisplayControl);
-		std::cout << "Start game \n";
+		cout << "Start game \n" << endl;
 
 		if(aFact->isReady()==1){
 
@@ -67,7 +68,7 @@
 
 				for(vector<a::AEntity*>::size_type i=0; i!=_Entities.size(); i++)
 					_Entities[i]->Update(gDisplayControl);
-
+				cout << "Render" << endl;
 
 
 				gDisplayControl->putrender();
@@ -93,10 +94,12 @@
 	}
 
 	void Game::objects(){
+		cout << "Objects" << endl;
 		gBG[0] = aFact->getEntity("background", 0, 0);
 		gBG[0]->MediaPath("img/bg.png");
 		gBG[0]->Visualize(gDisplayControl);
 		_Entities.push_back(gBG[0]);
+		cout << "Pushed back" << endl;
 
 		//gBG[1] = aFact->getEntity("background", 0, 0);
 		//gBG[1]->Visualize(gDisplayControl);

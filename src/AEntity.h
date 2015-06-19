@@ -17,6 +17,7 @@ namespace a {
 class AEntity{
 public:
 	AEntity(){
+		type = "";
 		x = 0;
 		y = 0;
 		width=0;
@@ -35,9 +36,10 @@ public:
 
 protected:
 	int x,y,width,height;
-	std::string path;
+	std::string path, type;
+
 };
 
-} /* namespace std */
+} /* namespace a */
 
 #endif /* SRC_AENTITY_H_ */

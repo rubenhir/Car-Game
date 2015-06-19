@@ -15,7 +15,9 @@ SDLDisplayControl::SDLDisplayControl(SDLFact *fact) {
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
+	type = "";
 	this->sdlfact = fact;
+	_dest = NULL;
 }
 
 SDLDisplayControl::~SDLDisplayControl() {
@@ -23,67 +25,56 @@ SDLDisplayControl::~SDLDisplayControl() {
 	free();
 }
 
-bool SDLDisplayControl::loadMedia(string path)
+bool SDLDisplayControl::loadMedia(string path, string type)
 {
-	//The final texture
-	SDL_Texture* newTexture = NULL;
 
-
+	printf( "testdispcontr");
+	this->type = type;
 	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	printf( "%s\n", path.c_str());
-	printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	if( loadedSurface == NULL )
+	_surface = IMG_Load( path.c_str() );
+	if( _surface == NULL )
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
 	else{
 		//Color key image
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
+		SDL_SetColorKey( _surface, SDL_TRUE, SDL_MapRGB( _surface->format, 0, 0xFF, 0xFF ) );
 
 		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface(sdlfact->getgRenderer(), loadedSurface );
-		if( newTexture == NULL )
+		mTexture = SDL_CreateTextureFromSurface(sdlfact->getgRenderer(), _surface );
+		if( mTexture == NULL )
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		else{
 			//Get image dimensions
-			mWidth = loadedSurface->w;
-			mHeight = loadedSurface->h;
+			mWidth = _surface->w;
+			mHeight = _surface->h;
 		}
 
 		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
+		SDL_FreeSurface( _surface );
 	}
-
 	//Return success
-	mTexture = newTexture;
 	return mTexture != NULL;
 }
 
 void SDLDisplayControl::free()
 {
-	//Free texture if it exists
-	if( mTexture != NULL )
-	{
-		SDL_DestroyTexture( mTexture );
-		mTexture = NULL;
-		mWidth = 0;
-		mHeight = 0;
-	}
+	SDL_DestroyTexture( mTexture );
+	mTexture = NULL;
+	mWidth = 0;
+	mHeight = 0;
+	type = "";
+	_dest = NULL;
 }
 
-void SDLDisplayControl::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
+void SDLDisplayControl::render(int x, int y)
 {
 	//Set rendering space and render to screen
-	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
-
-	//Set clip rendering dimensions
-	if( clip != NULL )
-	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
-	}
+	_dest->w = mWidth;
+	_dest->h = mHeight;
+	_dest->x = x;
+	_dest->y = y;
 
 	//Render to screen
-	SDL_RenderCopyEx(sdlfact->getgRenderer(), mTexture, clip, &renderQuad, angle, center, flip );
+	SDL_RenderCopy(sdlfact->getgRenderer(), mTexture, NULL, _dest);
 }
 
 int SDLDisplayControl::getWidth()

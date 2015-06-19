@@ -12,6 +12,7 @@ SDLFact::SDLFact() {
 	gRenderer = NULL;
 	gWindow = NULL;
 	_success = 0;
+	cout << "SDL start\n" << endl; //sec hoort gij mij nee :D
 }
 
 SDLFact::~SDLFact() {
@@ -20,14 +21,15 @@ SDLFact::~SDLFact() {
 
 
 bool SDLFact::init(int sWidth, int sHeight){
-
+	cout << "SDL init \n" << endl;
 	//Initialization flag
 	bool success = true;
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+		cout << "SDL could not initialize! SDL Error: ";
+		cout << SDL_GetError() << endl;
 		success = false;
 	}
 	else
@@ -35,41 +37,49 @@ bool SDLFact::init(int sWidth, int sHeight){
 		//Set texture filtering to linear
 		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 		{
-			printf( "Warning: Linear texture filtering not enabled!" );
+			cout << "Warning: Linear texture filtering not enabled!" << endl;
 		}
 
 		//Create window
 		gWindow = SDL_CreateWindow( "SDL Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, sWidth, sHeight, SDL_WINDOW_SHOWN );
+		cout << "SDL create window \n" << endl;
 		if( gWindow == NULL )
 		{
-			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
+			cout << "Window could not be created! SDL Error: ";
+			cout << SDL_GetError() << endl;
 			success = false;
 		}
 		else
 		{
 			//Create vsynced renderer for window
 			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+			cout << "SDL create renderer \n" << endl;
 			if( gRenderer == NULL )
 			{
-				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+				cout << "Renderer could not be created! SDL Error: ";
+				cout << SDL_GetError() << endl;
 				success = false;
 			}
 			else
 			{
 				//Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+				cout << "SDL set render draw color \n" << endl;
 
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
+				cout << "IMG flags \n" << endl;
 				if( !( IMG_Init( imgFlags ) & imgFlags ) )
 				{
-					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+					cout << "SDL_image could not initialize! SDL_image Error: ";
+					cout << IMG_GetError() << endl;
 					success = false;
 				}
 			}
 		}
 	}
 	_success = 1;
+	cout << success << endl;
 	return success;
 }
 

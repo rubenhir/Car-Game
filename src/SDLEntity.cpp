@@ -11,12 +11,12 @@
 using namespace std;
 
 
-SDLEntity::SDLEntity(string path,int x, int y) {
+SDLEntity::SDLEntity(string type, int x, int y) {
 	// TODO Auto-generated constructor stub
-	cout << "test" << "\n";
+	cout << "test" << "\n" << endl;
+	this->type = type;
 	this->x = x;
 	this->y = y;
-	this->path = path;
 }
 
 SDLEntity::~SDLEntity() {
@@ -25,16 +25,18 @@ SDLEntity::~SDLEntity() {
 
 
 
-void SDLEntity::MediaPath(std::string path){
-
+void SDLEntity::MediaPath(string path){
+	this->path = path;
 }
 
 void SDLEntity::Visualize(a::ADisplayControl *_video){
-
+	_video->loadMedia(path,type);
+	this->width = _video->getHeight();
+	this->height = _video->getWidth();
 }
 
 void SDLEntity::Update(a::ADisplayControl *_video){
-
+	_video->render(x,y);
 }
 
 void SDLEntity::Free(a::ADisplayControl *_video){

@@ -21,10 +21,10 @@ using namespace std;
 
 class SDLEntity : public a::AEntity {
 	public:
-		SDLEntity(string path,int x, int y);
+		SDLEntity(string type, int x, int y);
 		virtual ~SDLEntity();
 
-		void MediaPath(std::string path);
+		void MediaPath(string path);
 		int getX(){ return x;}
 
 		void position(int x, int y);
