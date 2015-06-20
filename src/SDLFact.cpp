@@ -11,7 +11,7 @@ using namespace std;
 SDLFact::SDLFact() {
 	gRenderer = NULL;
 	gWindow = NULL;
-	_success = 0;
+	_success = false;
 	cout << "SDL start\n" << endl; //sec hoort gij mij nee :D
 }
 
@@ -23,14 +23,14 @@ SDLFact::~SDLFact() {
 bool SDLFact::init(int sWidth, int sHeight){
 	cout << "SDL init \n" << endl;
 	//Initialization flag
-	bool success = true;
+	_success = true;
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
 		cout << "SDL could not initialize! SDL Error: ";
 		cout << SDL_GetError() << endl;
-		success = false;
+		_success = false;
 	}
 	else
 	{
@@ -47,7 +47,7 @@ bool SDLFact::init(int sWidth, int sHeight){
 		{
 			cout << "Window could not be created! SDL Error: ";
 			cout << SDL_GetError() << endl;
-			success = false;
+			_success = false;
 		}
 		else
 		{
@@ -58,7 +58,7 @@ bool SDLFact::init(int sWidth, int sHeight){
 			{
 				cout << "Renderer could not be created! SDL Error: ";
 				cout << SDL_GetError() << endl;
-				success = false;
+				_success = false;
 			}
 			else
 			{
@@ -73,14 +73,14 @@ bool SDLFact::init(int sWidth, int sHeight){
 				{
 					cout << "SDL_image could not initialize! SDL_image Error: ";
 					cout << IMG_GetError() << endl;
-					success = false;
+					_success = false;
 				}
 			}
 		}
 	}
-	_success = 1;
-	cout << success << endl;
-	return success;
+	if(_success == true) cout << "True" << endl;
+
+	return _success;
 }
 
 a::AEntity* SDLFact::getEntity(string path,int x,int y){
@@ -100,3 +100,7 @@ a::AEventControl* SDLFact::getEventControl(){
 }
 
 
+a::ALevelControl* SDLFact::getLevel(){
+	SDLLevelControl *_timer = new SDLLevelControl();
+	return _timer;
+}

@@ -14,6 +14,7 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 #include <stdio.h>
+#include <map>
 
 
 using namespace std;
@@ -27,20 +28,22 @@ public:
 	//Deallocates memory
 	~SDLDisplayControl();
 	void putrender();
+	void clearRender();
 
 	//Loads image at specified path
 	bool loadMedia(string path, string type);
 
 	//Deallocates texture
-	void free();
+	void free(string type);
 
 	//Renders texture at given point
-	void render(int x, int y);
+	void render(string type, int x, int y, int w, int h);
 
 	//Gets image dimensions
-	int getWidth();
-	int getHeight();
+	int *getSize(){ return size; }
 
+protected:
+	std::map <std::string, SDL_Texture*> _textureMap;
 
 private:
 	//The actual hardware texture
@@ -48,10 +51,7 @@ private:
 	SDLFact *sdlfact;
 	SDL_Surface *_surface;
 
-	//Image dimensions
-	int mWidth;
-	int mHeight;
-	string type;
+
 	SDL_Rect *_dest;
 };
 

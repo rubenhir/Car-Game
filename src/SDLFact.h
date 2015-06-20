@@ -11,6 +11,7 @@
 #include "AFact.h"
 #include "ADisplayControl.h"
 #include "AEventControl.h"
+#include "ALevelControl.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "AEntity.h"
@@ -19,6 +20,7 @@
 #include "SDLEntity.h"
 #include "SDLEventControl.h"
 #include "SDLDisplayControl.h"
+#include "SDLLevelControl.h"
 
 using namespace std;
 
@@ -30,6 +32,7 @@ class SDLFact : public a::AFact {
 		a::AEntity *getEntity(string path, int x, int y);
 		a::ADisplayControl *getDisplayControl();
 		a::AEventControl *getEventControl();
+		a::ALevelControl *getLevel();
 
 		bool init(int sWidth, int sHeight);
 
@@ -43,7 +46,7 @@ class SDLFact : public a::AFact {
 
 	private:
 		//private success message
-		int _success;
+		bool _success;
 
 		//The window we'll be rendering to
 		SDL_Window* gWindow;

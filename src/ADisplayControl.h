@@ -22,17 +22,20 @@ public:
 	//Loads image at specified path
 	virtual bool loadMedia(std::string path, std::string type)=0;
 	virtual void putrender()=0;
+	virtual void clearRender() = 0;
 
 	//Deallocates texture
-	virtual void free()=0;
+	virtual void free(std::string type)=0;
 
 	//Renders texture at given point
-	virtual void render(int x, int y)=0;
+	virtual void render(std::string type, int x, int y, int w, int h)=0;
 
 	//Gets image dimensions
-	virtual int getWidth()=0;
-	virtual int getHeight()=0;
+	virtual int *getSize()=0;
 
+protected:
+	//Image dimensions
+	int size[2];
 };
 
 

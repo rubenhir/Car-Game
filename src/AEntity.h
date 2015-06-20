@@ -17,11 +17,11 @@ namespace a {
 class AEntity{
 public:
 	AEntity(){
-		type = "";
 		x = 0;
 		y = 0;
 		width=0;
 		height=0;
+		_ref_w_h=0;
 	}
 	virtual ~AEntity(){}
 
@@ -37,6 +37,7 @@ public:
 protected:
 	int x,y,width,height;
 	std::string path, type;
+	int *_ref_w_h;
 
 };
 

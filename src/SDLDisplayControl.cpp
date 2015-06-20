@@ -13,27 +13,24 @@ using namespace std;
 SDLDisplayControl::SDLDisplayControl(SDLFact *fact) {
 	//Initialize
 	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
-	type = "";
 	this->sdlfact = fact;
-	_dest = NULL;
+	_dest = new SDL_Rect();
 	_surface = NULL;
 }
 
 SDLDisplayControl::~SDLDisplayControl() {
 	//Deallocate
-	free();
 }
 
 bool SDLDisplayControl::loadMedia(string path, string type){
 
+	string tester = "img/bg2.png";
 	printf( "testdispcontr");
-	this->type = type;
 	//Load image at specified path
 	cout << path << endl;
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	cout << loadedSurface << endl;
+
 	if( loadedSurface == NULL )
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
 	else{
@@ -46,8 +43,9 @@ bool SDLDisplayControl::loadMedia(string path, string type){
 			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
 		else{
 			//Get image dimensions
-			mWidth = loadedSurface->w;
-			mHeight = loadedSurface->h;
+			size[0] = loadedSurface->w;
+			size[1] = loadedSurface->h;
+			_textureMap[type] = mTexture;
 		}
 
 		//Get rid of old loaded surface
@@ -57,37 +55,31 @@ bool SDLDisplayControl::loadMedia(string path, string type){
 	return mTexture != NULL;
 }
 
-void SDLDisplayControl::free()
+void SDLDisplayControl::free(string type)
 {
-	SDL_DestroyTexture( mTexture );
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
-	type = "";
-	_dest = NULL;
+	SDL_Texture* _texture = _textureMap[type];
+	SDL_FreeSurface(_surface);
+	SDL_DestroyTexture(_texture);
 }
 
-void SDLDisplayControl::render(int x, int y)
+void SDLDisplayControl::render(string type, int x, int y, int w, int h)
 {
+	cout << "Render space todo" << "\n" << endl;
 	//Set rendering space and render to screen
-	_dest->w = mWidth;
-	_dest->h = mHeight;
+	_dest->w = w;
+	_dest->h = h;
 	_dest->x = x;
 	_dest->y = y;
-
+	cout << "Render Copy todo" << "\n" << endl;
 	//Render to screen
-	SDL_RenderCopy(sdlfact->getgRenderer(), mTexture, NULL, _dest);
+	SDL_RenderCopy(sdlfact->getgRenderer(), _textureMap[type], NULL, _dest);
+	cout << "Render Copy done" << "\n" << endl;
 }
 
-int SDLDisplayControl::getWidth()
-{
-	return mWidth;
+void SDLDisplayControl::clearRender(){
+	SDL_RenderClear(sdlfact->getgRenderer());
 }
 
-int SDLDisplayControl::getHeight()
-{
-	return mHeight;
-}
 
 void SDLDisplayControl::putrender()
 {

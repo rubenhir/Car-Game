@@ -11,6 +11,7 @@
 #include "ADisplayControl.h"
 #include "AEventControl.h"
 #include "AEntity.h"
+#include "ALevelControl.h"
 #include <string>
 
 namespace a {
@@ -23,6 +24,7 @@ public:
 	virtual AEntity* getEntity(std::string path, int x, int y)= 0;
 	virtual ADisplayControl* getDisplayControl()= 0;
 	virtual AEventControl* getEventControl()= 0;
+	virtual ALevelControl* getLevel()=0;
 
 	virtual bool init(int sWidth, int sHeight)=0;
 	virtual int isReady()=0;

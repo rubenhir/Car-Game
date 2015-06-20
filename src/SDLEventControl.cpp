@@ -38,11 +38,27 @@ void SDLEventControl::handleEvents(){
 				switch( _event->key.keysym.sym ){
 					case SDLK_LEFT:
 						_key=4;
-						std::cout<<"Links"<<std::endl;
+						std::cout<<"left"<<std::endl;
 						break;
 					case SDLK_RIGHT:
 						_key=6;
-						std::cout<<"Rechts"<<std::endl;
+						std::cout<<"right"<<std::endl;
+						break;
+					case SDLK_UP:
+						_key=8;
+						if(_time > 0)
+							_time -= 1;
+						std::cout<<"up"<<std::endl;
+						break;
+					case SDLK_DOWN:
+						_key=2;
+						if(_time < 20)
+							_time += 1;
+						std::cout<<"down"<<std::endl;
+						break;
+					case SDLK_SPACE:
+						_pauzing=true;
+						std::cout<<"space"<<std::endl;
 						break;
 					default:
 						break;
@@ -54,8 +70,8 @@ void SDLEventControl::handleEvents(){
 	}
 }
 void SDLEventControl::setDelayTime(double time){
-
+	_time = time;
 }
 void SDLEventControl::delay(){
-
+	SDL_Delay(_time);
 }

@@ -29,7 +29,7 @@ using namespace std;
 			a::AFact* aFact;
 			a::ADisplayControl *gDisplayControl;
 			a::AEventControl *gEventControl;
-			a::AEntity *gBG[3];
+			a::AEntity *gBG[2];
 			a::AEntity *gPlayer;
 			int _offset;
 		public:

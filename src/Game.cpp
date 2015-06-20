@@ -12,8 +12,6 @@
 		aFact = a;
 		gDisplayControl = aFact->getDisplayControl();
 		gEventControl = aFact->getEventControl();
-		gBG[0] = NULL;
-		gBG[1] = NULL;
 		gPlayer = NULL;
 		_offset = 0;
 	}
@@ -30,7 +28,6 @@
 	}
 
 	void Game::Start(){
-		cout << "Test" << endl;
 		a::AEntity *car = aFact->getEntity("car", 450, 500);
 		car->Visualize(gDisplayControl);
 		cout << "Start game \n" << endl;
@@ -41,16 +38,23 @@
 
 			while(gEventControl->running()){
 
-				gDisplayControl->free();
+				cout << "Move BG \n" << endl;
 
 				background(); //moving bg!
+				cout << "Moved BG \n" << endl;
 
+				cout << "Event Control \n" << endl;
 				gEventControl->delay();
+				cout << "Event Control Delayed \n" << endl;
 				gEventControl->handleEvents();
+				cout << "Event Control Handled Events \n" << endl;
 
 				int key = gEventControl->keyselection();
+				cout << "Event Control Key selected \n" << endl;
 				int _x = gPlayer->getX();
+				cout << "Player Got X \n" << endl;
 
+				/*
 				if(key==6){
 					if(_x<400)
 						_x += 1;
@@ -63,12 +67,17 @@
 				}
 				else
 					key=0;
+				*/
 
 				gPlayer->position(_x,480);
-
-				for(vector<a::AEntity*>::size_type i=0; i!=_Entities.size(); i++)
+				cout << "Player Positioned \n" << endl;
+				cout << _Entities.size() << endl;
+				for(vector<a::AEntity*>::size_type i=0; i!=_Entities.size(); i++){
+					cout << "For lus" << endl;
 					_Entities[i]->Update(gDisplayControl);
-				cout << "Render" << endl;
+
+				}
+				cout << "For lus" << endl;
 
 
 				gDisplayControl->putrender();
@@ -83,20 +92,25 @@
 
 	void Game::background(){
 		//Scroll background
+		cout << "ScrollBG \n" << endl;
 		++_offset;
 		if( _offset > 600)
 			_offset = 0;
-
+		cout << "End IF \n" << endl;
 		//Render background
 		gBG[0]->position(0,_offset);
+		cout << "BGPos 0 \n" << endl;
 		gBG[1]->position(0,_offset-600);
-		std::cout << "Bg done \n";
+		cout << "BGPos1 \n" << endl;
+		cout << "Bg done \n" << endl;
 	}
 
 	void Game::objects(){
 		cout << "Objects" << endl;
 		gBG[0] = aFact->getEntity("background", 0, 0);
-		gBG[0]->MediaPath("img/bg.png");
+		cout << "background entity" << endl;
+		gBG[0]->MediaPath("img/bg2.png");
+		cout << "MediaPath loaded" << endl;
 		gBG[0]->Visualize(gDisplayControl);
 		_Entities.push_back(gBG[0]);
 		cout << "Pushed back" << endl;
@@ -104,8 +118,6 @@
 		gBG[1] = aFact->getEntity("background", 0, 0);
 		gBG[1]->Visualize(gDisplayControl);
 		_Entities.push_back(gBG[1]);
-
-
 
 		gPlayer = aFact->getEntity("player", 275, 450);
 		gPlayer->MediaPath("img/car.png");
