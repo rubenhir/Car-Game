@@ -28,10 +28,11 @@ public:
 	virtual void MediaPath(std::string path)=0;
 	virtual void position(int x, int y)=0;
 	virtual int getX()=0;
+	virtual int getY()=0;
 
-	virtual void Visualize(a::ADisplayControl *_video)=0;
+	virtual void Visualize(a::ADisplayControl *_video) = 0;
 	virtual void Update(a::ADisplayControl *_video) = 0;
-
+	virtual void Free(a::ADisplayControl *_video)=0;
 	// Visualisatie --> Die in een SDLCar effectief wordt voorgesteld
 
 protected:

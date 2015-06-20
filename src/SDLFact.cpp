@@ -12,7 +12,7 @@ SDLFact::SDLFact() {
 	gRenderer = NULL;
 	gWindow = NULL;
 	_success = false;
-	cout << "SDL start\n" << endl; //sec hoort gij mij nee :D
+	//cout << "SDL start\n" << endl; //sec hoort gij mij nee :D
 }
 
 SDLFact::~SDLFact() {
@@ -21,15 +21,15 @@ SDLFact::~SDLFact() {
 
 
 bool SDLFact::init(int sWidth, int sHeight){
-	cout << "SDL init \n" << endl;
+	//cout << "SDL init \n" << endl;
 	//Initialization flag
 	_success = true;
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
-		cout << "SDL could not initialize! SDL Error: ";
-		cout << SDL_GetError() << endl;
+		//cout << "SDL could not initialize! SDL Error: ";
+		//cout << SDL_GetError() << endl;
 		_success = false;
 	}
 	else
@@ -37,48 +37,48 @@ bool SDLFact::init(int sWidth, int sHeight){
 		//Set texture filtering to linear
 		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 		{
-			cout << "Warning: Linear texture filtering not enabled!" << endl;
+			//cout << "Warning: Linear texture filtering not enabled!" << endl;
 		}
 
 		//Create window
 		gWindow = SDL_CreateWindow( "SDL Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, sWidth, sHeight, SDL_WINDOW_SHOWN );
-		cout << "SDL create window \n" << endl;
+		//cout << "SDL create window \n" << endl;
 		if( gWindow == NULL )
 		{
-			cout << "Window could not be created! SDL Error: ";
-			cout << SDL_GetError() << endl;
+			//cout << "Window could not be created! SDL Error: ";
+			//cout << SDL_GetError() << endl;
 			_success = false;
 		}
 		else
 		{
 			//Create vsynced renderer for window
 			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-			cout << "SDL create renderer \n" << endl;
+			//cout << "SDL create renderer \n" << endl;
 			if( gRenderer == NULL )
 			{
-				cout << "Renderer could not be created! SDL Error: ";
-				cout << SDL_GetError() << endl;
+				//cout << "Renderer could not be created! SDL Error: ";
+				//cout << SDL_GetError() << endl;
 				_success = false;
 			}
 			else
 			{
 				//Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				cout << "SDL set render draw color \n" << endl;
+				//cout << "SDL set render draw color \n" << endl;
 
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
-				cout << "IMG flags \n" << endl;
+				//cout << "IMG flags \n" << endl;
 				if( !( IMG_Init( imgFlags ) & imgFlags ) )
 				{
-					cout << "SDL_image could not initialize! SDL_image Error: ";
-					cout << IMG_GetError() << endl;
+					//cout << "SDL_image could not initialize! SDL_image Error: ";
+					//cout << IMG_GetError() << endl;
 					_success = false;
 				}
 			}
 		}
 	}
-	if(_success == true) cout << "True" << endl;
+	//if(_success == true) cout << "True" << endl;
 
 	return _success;
 }

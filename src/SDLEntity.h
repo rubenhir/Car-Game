@@ -26,6 +26,7 @@ class SDLEntity : public a::AEntity {
 
 		void MediaPath(string path);
 		int getX(){ return x;}
+		int getY(){ return y;}
 
 		void position(int x, int y);
 

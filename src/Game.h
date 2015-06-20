@@ -14,6 +14,8 @@
 #include "ADisplayControl.h"
 #include "AEventControl.h"
 #include "AEntity.h"
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -31,6 +33,12 @@ using namespace std;
 			a::AEventControl *gEventControl;
 			a::AEntity *gBG[2];
 			a::AEntity *gPlayer;
+			a::AEntity *gEnemy[10];
+			a::AEntity *gBonus;
+
+			void generateRandomEnemy(int i);
+			int updateRandomEnemy(int type);
+
 			int _offset;
 		public:
 			Game(a::AFact* a);

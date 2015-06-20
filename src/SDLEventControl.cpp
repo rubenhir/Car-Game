@@ -24,6 +24,7 @@ SDLEventControl::~SDLEventControl() {
 
 
 void SDLEventControl::handleEvents(){
+	//cout << "Handle Events \n" << endl;
 	if(SDL_PollEvent(_event))
 	{
 		switch (_event->type){

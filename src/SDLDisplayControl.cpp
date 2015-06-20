@@ -24,12 +24,12 @@ SDLDisplayControl::~SDLDisplayControl() {
 
 bool SDLDisplayControl::loadMedia(string path, string type){
 
-	string tester = "img/bg2.png";
-	printf( "testdispcontr");
+	//string tester = "img/bg2.png";
+	//printf( "testdispcontr");
 	//Load image at specified path
-	cout << path << endl;
+	//cout << path << endl;
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	cout << loadedSurface << endl;
+	//cout << loadedSurface << endl;
 
 	if( loadedSurface == NULL )
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
@@ -64,16 +64,16 @@ void SDLDisplayControl::free(string type)
 
 void SDLDisplayControl::render(string type, int x, int y, int w, int h)
 {
-	cout << "Render space todo" << "\n" << endl;
+	//cout << "Render space todo" << "\n" << endl;
 	//Set rendering space and render to screen
 	_dest->w = w;
 	_dest->h = h;
 	_dest->x = x;
 	_dest->y = y;
-	cout << "Render Copy todo" << "\n" << endl;
+	//cout << "Render Copy todo" << "\n" << endl;
 	//Render to screen
 	SDL_RenderCopy(sdlfact->getgRenderer(), _textureMap[type], NULL, _dest);
-	cout << "Render Copy done" << "\n" << endl;
+	//cout << "Render Copy done" << "\n" << endl;
 }
 
 void SDLDisplayControl::clearRender(){

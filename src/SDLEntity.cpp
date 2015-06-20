@@ -13,7 +13,7 @@ using namespace std;
 
 SDLEntity::SDLEntity(string type, int x, int y) {
 	// TODO Auto-generated constructor stub
-	cout << "test" << "\n" << endl;
+	//cout << "test" << "\n" << endl;
 	this->type = type;
 	this->x = x;
 	this->y = y;
@@ -29,16 +29,16 @@ void SDLEntity::MediaPath(string path){
 }
 
 void SDLEntity::Visualize(a::ADisplayControl *_video){
-	cout << "SDLEntity_LoadingMedia" << "\n" << endl;
+	//cout << "SDLEntity_LoadingMedia" << "\n" << endl;
 	_video->loadMedia(path,type);
-	cout << "Media Loaded" << "\n" << endl;
+	//cout << "Media Loaded" << "\n" << endl;
 	_ref_w_h = _video->getSize();
 	this->width = _ref_w_h[0];
 	this->height = _ref_w_h[1];
 }
 
 void SDLEntity::Update(a::ADisplayControl *_video){
-	cout << "Render video" << "\n" << endl;
+	//cout << "Render video" << "\n" << endl;
 	_video->render(type, x, y, width, height);
 }
 
