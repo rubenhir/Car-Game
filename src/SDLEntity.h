@@ -30,9 +30,9 @@ class SDLEntity : public a::AEntity {
 
 		void position(int x, int y);
 
-		void Visualize(a::ADisplayControl *_video);
-		void Update(a::ADisplayControl *_video);
-		void Free(a::ADisplayControl *_video);
+		void Visualize(a::ADisplayControl *_display);
+		void Update(a::ADisplayControl *_display);
+		void Free(a::ADisplayControl *_display);
 
 };
 

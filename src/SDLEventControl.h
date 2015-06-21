@@ -19,16 +19,17 @@ class SDLFact;
 			SDLEventControl(SDLFact *_fact);
 			~SDLEventControl();
 
+			// Events (key pressed)
 			void handleEvents();
-			void setDelayTime(double time);
+			// brief Wait a specified number of milliseconds before returning.
 			void delay();
-			bool running() { return _running; }
-			bool pauzing() { return _pauzing; }
-			int keyselection() { return _key; }
+			// Check if player didn't Quit
+			bool playing() { return _playing; }
+			int kSelect() { return _key; }
 
 		private:
+			SDL_Event *gEvent;
 			SDLFact *_fact;
-			SDL_Event *_event;
 		};
 
 #endif /* SRC_SDLEVENTCONTROL_H_ */

@@ -28,22 +28,22 @@ void SDLEntity::MediaPath(string path){
 	this->path = path;
 }
 
-void SDLEntity::Visualize(a::ADisplayControl *_video){
+void SDLEntity::Visualize(a::ADisplayControl *_display){
 	//cout << "SDLEntity_LoadingMedia" << "\n" << endl;
-	_video->loadMedia(path,type);
+	_display->loadMedia(path,type);
 	//cout << "Media Loaded" << "\n" << endl;
-	_ref_w_h = _video->getSize();
-	this->width = _ref_w_h[0];
-	this->height = _ref_w_h[1];
+	pointerWH = _display->getSize();
+	this->width = pointerWH[0];
+	this->height = pointerWH[1];
 }
 
-void SDLEntity::Update(a::ADisplayControl *_video){
+void SDLEntity::Update(a::ADisplayControl *_display){
 	//cout << "Render video" << "\n" << endl;
-	_video->render(type, x, y, width, height);
+	_display->render(type, x, y, width, height);
 }
 
-void SDLEntity::Free(a::ADisplayControl *_video){
-	_video->free(type);
+void SDLEntity::Free(a::ADisplayControl *_display){
+	_display->free(type);
 }
 
 void SDLEntity::position(int x, int y){

@@ -17,6 +17,7 @@
 #include "AUserInterfaceControl.h"
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 
 using namespace std;
 
@@ -35,12 +36,17 @@ using namespace std;
 			a::AEventControl *gEventControl;
 			a::ALevelControl *gLevelControl;
 			a::AEntity *gBG[2];
+			a::AEntity *gIntTexture;
 			a::AEntity *gPlayer;
 			a::AEntity *gEnemy[10];
 			a::AEntity *gBonus;
+			a::AEntity *gBoost;
+			a::AEntity *gSpriteSheetTexture;
 			a::AUserInterfaceControl *gUIScore;
 			a::AUserInterfaceControl *gUITime;
 			a::AUserInterfaceControl *gUILevel;
+
+			SDL_Rect *gSpriteClips[2];
 
 			void generateRandomEnemy(int i);
 			int updateRandomEnemy(int type);

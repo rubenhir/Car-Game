@@ -21,10 +21,10 @@ using namespace std;
 
 class SDLUserInterfaceControl : public a::AUserInterfaceControl{
 public:
-	SDLUserInterfaceControl(string text, int x, int y);
+	SDLUserInterfaceControl(string type, int x, int y);
 	virtual ~SDLUserInterfaceControl();
 
-	void setText(string text, int x, int y);
+	void setText(string text);
 
 	void Visualize(a::ADisplayControl *text);
 	void Update(a::ADisplayControl *text);

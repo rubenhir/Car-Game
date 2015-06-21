@@ -13,23 +13,22 @@ namespace a {
 class AEventControl {
 	public:
 		AEventControl(){
-			_running = false;
-			_pauzing = false,
-			_time = 0;
+			_playing = false;
+			_sec = 0;
 			_key = 0;
+			_pauzing = false;
+
 		}
 		virtual ~AEventControl(){}
 
-		virtual void handleEvents()=0;
-		virtual void setDelayTime(double time)=0;
 		virtual void delay()=0;
-		virtual bool running()=0;
-		virtual bool pauzing()=0;
-		virtual int keyselection()=0;
+		virtual bool playing()=0;
+		virtual void handleEvents()=0;
+		virtual int kSelect()=0;
 
 	protected:
-		bool _running,_pauzing;
-		double _time;
+		bool _playing,_pauzing;
+		double _sec;
 		int _key;
 
 	};

@@ -35,8 +35,8 @@ public:
 	bool loadMedia(string path, string type);
 
 	//Loads text at specified path
-	bool drawText(std::string textureText, int x, int y);
-	void renderText(std::string text, int x, int y);
+	bool drawText(std::string textureText, int x, int y, string type);
+	void renderText(std::string type, int x, int y);
 
 	//Deallocates texture
 	void free(string type);
@@ -54,6 +54,7 @@ private:
 	//The actual hardware texture
 	SDL_Texture *mTexture;
 	SDL_Surface *_surface;
+	SDL_Surface *_Tsurface;
 	SDL_Rect *_dest;
 	TTF_Font *gFont;
 

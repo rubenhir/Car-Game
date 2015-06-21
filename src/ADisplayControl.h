@@ -9,8 +9,6 @@
 #define SRC_ADISPLAYCONTROL_H_
 
 #include <string>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 namespace a {
 
@@ -25,8 +23,8 @@ public:
 	virtual void clearRender() = 0;
 
 	//Loads text at specified path
-	virtual bool drawText(std::string textureText, int x, int y)=0;
-	virtual void renderText(std::string text, int x, int y)=0;
+	virtual bool drawText(std::string textureText, int x, int y, std::string type)=0;
+	virtual void renderText(std::string type, int x, int y)=0;
 
 	//Deallocates texture
 	virtual void free(std::string type)=0;

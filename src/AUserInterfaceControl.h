@@ -16,13 +16,13 @@ namespace a {
 class AUserInterfaceControl {
 public:
 	AUserInterfaceControl(){
-		text = "";
+		type = "";
 		x = 0;
 		y = 0;
 	}
 	virtual ~AUserInterfaceControl(){}
 
-	virtual void setText(std::string text, int x, int y)=0;
+	virtual void setText(std::string text)=0;
 
 	virtual void Visualize(a::ADisplayControl *text)=0;
 	virtual void Update(a::ADisplayControl *text)=0;
@@ -30,7 +30,7 @@ public:
 
 protected:
 	int x,y;
-	std::string text;
+	std::string text,type;
 
 };
 

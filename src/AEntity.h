@@ -21,7 +21,7 @@ public:
 		y = 0;
 		width=0;
 		height=0;
-		_ref_w_h=0;
+		pointerWH=0;
 	}
 	virtual ~AEntity(){}
 
@@ -30,15 +30,14 @@ public:
 	virtual int getX()=0;
 	virtual int getY()=0;
 
-	virtual void Visualize(a::ADisplayControl *_video) = 0;
-	virtual void Update(a::ADisplayControl *_video) = 0;
-	virtual void Free(a::ADisplayControl *_video)=0;
+	virtual void Visualize(a::ADisplayControl *_display) = 0;
+	virtual void Update(a::ADisplayControl *_display) = 0;
+	virtual void Free(a::ADisplayControl *_display)=0;
 	// Visualisatie --> Die in een SDLCar effectief wordt voorgesteld
 
 protected:
-	int x,y,width,height;
 	std::string path, type;
-	int *_ref_w_h;
+	int *pointerWH,x,y,width,height;;
 
 };
 
