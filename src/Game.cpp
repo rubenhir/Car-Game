@@ -13,9 +13,18 @@
 		gDisplayControl = aFact->getDisplayControl();
 		gEventControl = aFact->getEventControl();
 		gLevelControl = aFact->newLevel();
+
+		// (Re)Set UI
+		gUIScore = NULL;
+		gUITime = NULL;
+		gUILevel = NULL;
+
+		// (Re)Set Entities
 		gPlayer = NULL;
 		gBonus = NULL;
 		for(int i=0; i<6; i++) gEnemy[i]=NULL;
+
+
 		_offset = 0;
 
 		number_of_cops = 6;
@@ -37,6 +46,7 @@
 		if(aFact->isReady()==1){
 
 			objects();
+			userinterface();
 
 			while(gEventControl->running()){
 				//cout << "Move BG \n" << endl;
@@ -165,6 +175,11 @@
 				for(vector<a::AEntity*>::size_type i=0; i!=_Entities.size(); i++){
 					_Entities[i]->Update(gDisplayControl);
 				}
+
+				for(vector<a::AUserInterfaceControl*>::size_type i=0; i!=_UIs.size(); i++){
+					_UIs[i]->Update(gDisplayControl);
+				}
+
 				//cout << "For lus" << endl;
 				gDisplayControl->putrender();
 			}
@@ -189,6 +204,13 @@
 		gBG[1]->position(0,_offset-600);
 		//cout << "BGPos1 \n" << endl;
 		//cout << "Bg done \n" << endl;
+	}
+
+	void Game::userinterface(){
+		gUIScore = aFact->getUI("Test", 500, 0);
+		//gUIScore->setText("Test", 600, 0);
+		gUIScore->Visualize(gDisplayControl);
+		_UIs.push_back(gUIScore);
 	}
 
 	void Game::objects(){

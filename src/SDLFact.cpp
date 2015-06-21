@@ -88,6 +88,11 @@ a::AEntity* SDLFact::getEntity(string path,int x,int y){
 	return entity;
 }
 
+a::AUserInterfaceControl* SDLFact::getUI(string text, int x, int y){
+	SDLUserInterfaceControl* UI = new SDLUserInterfaceControl(text, x, y);
+	return UI;
+}
+
 a::ADisplayControl* SDLFact::getDisplayControl(){
 	SDLDisplayControl* display = new SDLDisplayControl(this);
 	return display;

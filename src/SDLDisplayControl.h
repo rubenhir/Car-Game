@@ -12,6 +12,7 @@
 #include "ADisplayControl.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <stdio.h>
 #include <map>
@@ -33,6 +34,10 @@ public:
 	//Loads image at specified path
 	bool loadMedia(string path, string type);
 
+	//Loads text at specified path
+	bool drawText(std::string textureText, int x, int y);
+	void renderText(std::string text, int x, int y);
+
 	//Deallocates texture
 	void free(string type);
 
@@ -43,16 +48,19 @@ public:
 	int *getSize(){ return size; }
 
 protected:
-	std::map <std::string, SDL_Texture*> _textureMap;
+	map <std::string, SDL_Texture*> _textureMap;
 
 private:
 	//The actual hardware texture
 	SDL_Texture *mTexture;
-	SDLFact *sdlfact;
 	SDL_Surface *_surface;
-
-
 	SDL_Rect *_dest;
+	TTF_Font *gFont;
+
+	SDLFact *sdlfact;
+
+
+
 };
 
 

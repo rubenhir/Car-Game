@@ -12,6 +12,7 @@
 #include "AEventControl.h"
 #include "AEntity.h"
 #include "ALevelControl.h"
+#include "AUserInterfaceControl.h"
 #include <string>
 
 namespace a {
@@ -22,6 +23,7 @@ class AFact {
 		virtual ~AFact(){}
 
 		virtual AEntity* getEntity(std::string path, int x, int y) = 0;
+		virtual AUserInterfaceControl* getUI(std::string text, int x, int y) = 0;
 		virtual ADisplayControl* getDisplayControl() = 0;
 		virtual AEventControl* getEventControl() = 0;
 		virtual ALevelControl* newLevel() = 0;

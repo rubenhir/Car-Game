@@ -25,7 +25,8 @@ public:
 	virtual void clearRender() = 0;
 
 	//Loads text at specified path
-	virtual bool loadText(std::string path, std::string type)=0;
+	virtual bool drawText(std::string textureText, int x, int y)=0;
+	virtual void renderText(std::string text, int x, int y)=0;
 
 	//Deallocates texture
 	virtual void free(std::string type)=0;

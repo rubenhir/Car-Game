@@ -12,6 +12,7 @@
 #include "ADisplayControl.h"
 #include "AEventControl.h"
 #include "ALevelControl.h"
+#include "AUserInterfaceControl.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "AEntity.h"
@@ -21,6 +22,7 @@
 #include "SDLEventControl.h"
 #include "SDLDisplayControl.h"
 #include "SDLLevelControl.h"
+#include "SDLUserInterfaceControl.h"
 
 using namespace std;
 
@@ -30,6 +32,7 @@ class SDLFact : public a::AFact {
 		virtual ~SDLFact();
 
 		a::AEntity *getEntity(string path, int x, int y);
+		a::AUserInterfaceControl *getUI(string text, int x, int y);
 		a::ADisplayControl *getDisplayControl();
 		a::AEventControl *getEventControl();
 		a::ALevelControl *newLevel();
