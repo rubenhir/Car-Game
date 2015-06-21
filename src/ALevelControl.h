@@ -13,32 +13,24 @@ namespace a {
 class ALevelControl {
 	public:
 		ALevelControl(){
-			startTicks=0;
-			pausedTicks=0;
-			paused=false;
-			started=false;
+			level = 1;
+			score = 0;
+			warnings = 0;
 		}
 		virtual ~ALevelControl(){}
 
-		//Clock actions
-		virtual void start()=0;
-		virtual void stop()=0;
-		virtual void pause()=0;
-		virtual void unpause()=0;
+		// getFunctions
+		virtual int getLevel()=0;
+		virtual int getScore()=0;
+		virtual int getWarnings()=0;
 
-		//Gets time
-		virtual int get_ticks()=0;
-		virtual double get_sec()=0;
-
-		//Checks the status
-		virtual bool is_started()=0;
-		virtual bool is_paused()=0;
+		// setFunctions
+		virtual void setLevel(int level)=0;
+		virtual void setScore(int score)=0;
+		virtual void giveWarning()=0;
 
 	protected:
-			int startTicks;
-			int pausedTicks;
-			bool paused;
-			bool started;
+		int level,score,warnings;
 };
 
 

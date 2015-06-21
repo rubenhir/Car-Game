@@ -32,7 +32,7 @@ class SDLFact : public a::AFact {
 		a::AEntity *getEntity(string path, int x, int y);
 		a::ADisplayControl *getDisplayControl();
 		a::AEventControl *getEventControl();
-		a::ALevelControl *getLevel();
+		a::ALevelControl *newLevel();
 
 		bool init(int sWidth, int sHeight);
 

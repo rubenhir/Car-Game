@@ -12,7 +12,7 @@ SDLFact::SDLFact() {
 	gRenderer = NULL;
 	gWindow = NULL;
 	_success = false;
-	//cout << "SDL start\n" << endl; //sec hoort gij mij nee :D
+	//cout << "SDL start\n" << endl;
 }
 
 SDLFact::~SDLFact() {
@@ -84,23 +84,23 @@ bool SDLFact::init(int sWidth, int sHeight){
 }
 
 a::AEntity* SDLFact::getEntity(string path,int x,int y){
-	SDLEntity* test = new SDLEntity(path, x, y);
-	return test;
+	SDLEntity* entity = new SDLEntity(path, x, y);
+	return entity;
 }
 
 a::ADisplayControl* SDLFact::getDisplayControl(){
-	SDLDisplayControl* test = new SDLDisplayControl(this);
-	return test;
+	SDLDisplayControl* display = new SDLDisplayControl(this);
+	return display;
 }
 
 
 a::AEventControl* SDLFact::getEventControl(){
-	SDLEventControl* test = new SDLEventControl(this);
-	return test;
+	SDLEventControl* event = new SDLEventControl(this);
+	return event;
 }
 
 
-a::ALevelControl* SDLFact::getLevel(){
-	SDLLevelControl *_timer = new SDLLevelControl();
-	return _timer;
+a::ALevelControl* SDLFact::newLevel(){
+	SDLLevelControl *level = new SDLLevelControl();
+	return level;
 }

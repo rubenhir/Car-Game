@@ -19,19 +19,19 @@ class SDLLevelControl : public a::ALevelControl  {
 		SDLLevelControl();
 		virtual ~SDLLevelControl();
 
-		//Clock actions
-		void start();
-		void stop();
-		void pause();
-		void unpause();
+		int getLevel(){
+			return level;
+		}
+		int getScore(){
+			return score;
+		}
+		int getWarnings(){
+			return warnings;
+		}
 
-		//Gets time
-		int get_ticks();
-		double get_sec();
-
-		//Checks the status
-		bool is_started();
-		bool is_paused();
+		void setLevel(int level);
+		void setScore(int score);
+		void giveWarning();
 };
 
 

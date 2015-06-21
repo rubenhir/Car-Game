@@ -24,6 +24,9 @@ public:
 	virtual void putrender()=0;
 	virtual void clearRender() = 0;
 
+	//Loads text at specified path
+	virtual bool loadText(std::string path, std::string type)=0;
+
 	//Deallocates texture
 	virtual void free(std::string type)=0;
 

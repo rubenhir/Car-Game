@@ -12,21 +12,23 @@
 		aFact = a;
 		gDisplayControl = aFact->getDisplayControl();
 		gEventControl = aFact->getEventControl();
+		gLevelControl = aFact->newLevel();
 		gPlayer = NULL;
 		gBonus = NULL;
 		for(int i=0; i<6; i++) gEnemy[i]=NULL;
 		_offset = 0;
+
+		number_of_cops = 6;
+		score_to_speed = 150;
 	}
 
 	Game::~Game() {
 		// TODO Auto-generated destructor stub
 	}
 
-
 	void Game::Init(){
 		//cout << "game Init \n" << endl;
 		aFact->init(792, 600);
-
 	}
 
 	void Game::Start(){
@@ -37,10 +39,13 @@
 			objects();
 
 			while(gEventControl->running()){
-
 				//cout << "Move BG \n" << endl;
 
-				background(); //moving bg!
+				int score = gLevelControl->getScore();
+				int level = gLevelControl->getLevel();
+				int warnings = gLevelControl->getWarnings();
+
+				background(level); //moving bg!
 				//cout << "Moved BG \n" << endl;
 
 				//cout << "Event Control \n" << endl;
@@ -48,6 +53,7 @@
 				//cout << "Event Control Delayed \n" << endl;
 				gEventControl->handleEvents();
 				//cout << "Event Control Handled Events \n" << endl;
+
 
 				int key = gEventControl->keyselection();
 				//cout << "Event Control Key selected \n" << endl;
@@ -63,20 +69,54 @@
 					if(playerX<400)
 						playerX += 5;
 					key = 0;
-				}
-				else if(key==4){
+				}else if(key==4){
 					if(playerX>60)
 						playerX -= 5;
 					key = 0;
-				}
-				else
-					key=0;
-				bonusY +=2;
-				gBonus->position(bonusX,bonusY);
+				}else key=0;
 
+				bonusY +=2;
+
+				gBonus->position(bonusX,bonusY);
 				gPlayer->position(playerX,480);
 
-				for(int i=0; i<6; i++){
+				// Collision check if hit other car
+				if(!checkCollision(playerX, playerY, 100, 40, number_of_cops, 1)){
+					gLevelControl->giveWarning();
+					warnings = gLevelControl->getWarnings();
+					cout << "You have " << warnings << " warnings " << endl;
+				}
+
+				// for as many times i big is
+				for(int i=0; i<number_of_cops; i++){
+					int enemyX = gEnemy[i]->getX();
+					int enemyY = gEnemy[i]->getY();
+
+					if(enemyY > 650){
+						enemyX = updateRandomEnemy(0);
+						enemyY = updateRandomEnemy(1);
+						//generateRandomEnemy(number_of_cops,1);
+
+						int enemyX, enemyY;
+						bool checkcol = false;
+
+						while(!checkcol){
+							// generate new
+							cout << "While" << endl;
+							enemyY = updateRandomEnemy(1);
+							enemyX = updateRandomEnemy(0);
+							checkcol = checkCollision(enemyX, enemyY, 400, 0, number_of_cops, 0);
+
+						}
+
+
+					}else enemyY += 2;
+					gEnemy[i]->position(enemyX,enemyY);
+				}
+
+
+				/*
+				for(int i=0; i<number_of_cops; i++){
 					int enemyX = gEnemy[i]->getX();
 					int enemyY = gEnemy[i]->getY();
 					if(enemyX >= playerX-40 && enemyX < playerX+40 && enemyY >= playerY-100 && enemyY < playerY+100){cout << "Collision \n" << endl;}
@@ -84,8 +124,38 @@
 						enemyX = updateRandomEnemy(0);
 						enemyY = updateRandomEnemy(1);
 					}
-					else enemyY += 2;
+					else enemyY += 2+score/score_to_speed;
 					gEnemy[i]->position(enemyX,enemyY);
+				}
+				 */
+
+
+				// Collision check if hit thief
+				if(bonusX >= playerX-40 && bonusX < playerX+40 && bonusY >= playerY-40 && bonusY < playerY+40){
+					cout << "Caught Thief \n" << endl;
+					score += 50;
+					gLevelControl->setScore(score);
+
+					//generateRandomEnemy(number_of_cops,1);
+
+					int XX, YY;
+					bool checkcol = false;
+
+					while(!checkcol){
+						// generate new
+						cout << "While" << endl;
+						YY = updateRandomEnemy(1);
+						XX = updateRandomEnemy(0);
+						checkcol = checkCollision(XX, YY, 400, 0, number_of_cops, 0);
+					}
+
+					gBonus->position(XX,YY);
+					cout << "Score: " << gLevelControl->getScore() << endl;
+
+					// Check score
+					if(score >= 50)			gLevelControl->setLevel(level+=1);
+					else if(score >= 100)	gLevelControl->setLevel(level+=1);
+					else					gLevelControl->setLevel(level+=1);
 				}
 
 
@@ -96,10 +166,7 @@
 					_Entities[i]->Update(gDisplayControl);
 				}
 				//cout << "For lus" << endl;
-
-
 				gDisplayControl->putrender();
-
 			}
 		}
 		else{
@@ -108,10 +175,10 @@
 	}
 
 
-	void Game::background(){
+	void Game::background(int level){
 		//Scroll background
 		//cout << "ScrollBG \n" << endl;
-		int speed = 3;
+		int speed = 2+level*2;
 		_offset = _offset + speed;
 		if( _offset > 600)
 			_offset = 0;
@@ -134,6 +201,7 @@
 		_Entities.push_back(gBG[0]);
 		//cout << "Pushed back" << endl;
 
+
 		gBG[1] = aFact->getEntity("background", 0, 0);
 		gBG[1]->Visualize(gDisplayControl);
 		_Entities.push_back(gBG[1]);
@@ -144,45 +212,75 @@
 		_Entities.push_back(gPlayer);
 
 		int lane = updateRandomEnemy(0);
-		int height = updateRandomEnemy(1);
+		int height = updateRandomEnemy(2);
 		gBonus = aFact->getEntity("bonus", lane, height);
 		gBonus->MediaPath("img/th.png");
 		gBonus->Visualize(gDisplayControl);
 		_Entities.push_back(gBonus);
 
-		for(int i=0; i<6; i++){
+		cout << "Score: " << gLevelControl->getScore() << endl;
+
+		for(int i=0; i<number_of_cops; i++){
 			generateRandomEnemy(i);
 		}
 	}
 
+	//
 	void Game::generateRandomEnemy(int i){
-		int lane, r1,r2;
-		r1 = rand() % 4 +1;
-		//cout << r1 << endl;
-		r2 = rand() % 500 - 800;
-		if (r1 == 1) lane = 85;
-		else if (r1 == 2) lane = 180;
-		else if (r1 == 3) lane = 275;
-		else if (r1 == 4) lane = 370;
-		gEnemy[i] = aFact->getEntity("enemy", lane, r2);
+		int lane, r1;
+		bool checkcol = false;
+		r1 = updateRandomEnemy(1);
+		lane = updateRandomEnemy(0);
+
+		// Check space between other cops
+
+		// If the to spawn isn't the first
+		if(i!=0) {
+			// while
+			while(checkcol == false){
+				// generate new
+				//cout << "While" << endl;
+				r1 = updateRandomEnemy(1);
+				lane = updateRandomEnemy(0);
+				checkcol = checkCollision(lane, r1, 400, 0, i, 0);
+
+			}
+		}
+
+
+		gEnemy[i] = aFact->getEntity("enemy", lane, r1);
 		gEnemy[i]->MediaPath("img/car.png");
 		gEnemy[i]->Visualize(gDisplayControl);
 		_Entities.push_back(gEnemy[i]);
 	}
 
+	// Type = 0 Return a random lane to spawn on
+	// Type = 1 Return a random height to spawn on
+	// Type = 2 Return a further away random height to spawn on
 	int Game::updateRandomEnemy(int type){
+
 		if(type == 0){
-			int lane;
 			int r1 = rand() % 4 +1;
-			if (r1 == 1) lane = 85;
-			else if (r1 == 2) lane = 180;
-			else if (r1 == 3) lane = 275;
-			else if (r1 == 4) lane = 370;
-			return lane;
-		}else{
-			int r2 = rand() % 500 - 800;
-			return r2;
+			if (r1 == 1) 		return  85;
+			else if (r1 == 2) 	return 180;
+			else if (r1 == 3) 	return 275;
+			else			 	return 370;
 		}
+		else if(type == 1) 		return (rand() % 1000 - 1200);
+		else					return (rand() % 2000 - 3000);
+	}
 
-
+	bool Game::checkCollision(int x, int y, int ypadding, int xpadding, int j, int mode){
+			// for as many times i big is
+			for(int i=0; i<j; i++){
+				int enemyX = gEnemy[i]->getX();
+				int enemyY = gEnemy[i]->getY();
+				// If this other car is on the same lane
+				if(enemyX >= x-xpadding && enemyX <= x+xpadding && enemyY >= y-ypadding && enemyY <= y+ypadding){
+						//cout << j << " is too close to " << i << endl;
+					return false;
+				}//else cout << j << " is not close to " << i << endl;
+			}
+			//cout << j << " can be placed" << endl;
+			return true;
 	}

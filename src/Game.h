@@ -31,6 +31,7 @@ using namespace std;
 			a::AFact* aFact;
 			a::ADisplayControl *gDisplayControl;
 			a::AEventControl *gEventControl;
+			a::ALevelControl *gLevelControl;
 			a::AEntity *gBG[2];
 			a::AEntity *gPlayer;
 			a::AEntity *gEnemy[10];
@@ -38,8 +39,9 @@ using namespace std;
 
 			void generateRandomEnemy(int i);
 			int updateRandomEnemy(int type);
+			bool checkCollision(int x, int y, int ypadding, int xpadding, int j, int mode);
 
-			int _offset;
+			int _offset, score_to_speed,number_of_cops;
 		public:
 			Game(a::AFact* a);
 			~Game();
@@ -47,7 +49,7 @@ using namespace std;
 			void Init();
 			void Close();
 
-			void background();
+			void background(int level);
 			void objects();
 
 	};

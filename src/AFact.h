@@ -17,18 +17,18 @@
 namespace a {
 
 class AFact {
-public:
-	AFact(){}
-	virtual ~AFact(){}
+	public:
+		AFact(){}
+		virtual ~AFact(){}
 
-	virtual AEntity* getEntity(std::string path, int x, int y)= 0;
-	virtual ADisplayControl* getDisplayControl()= 0;
-	virtual AEventControl* getEventControl()= 0;
-	virtual ALevelControl* getLevel()=0;
+		virtual AEntity* getEntity(std::string path, int x, int y) = 0;
+		virtual ADisplayControl* getDisplayControl() = 0;
+		virtual AEventControl* getEventControl() = 0;
+		virtual ALevelControl* newLevel() = 0;
 
-	virtual bool init(int sWidth, int sHeight)=0;
-	virtual int isReady()=0;
-};
+		virtual bool init(int sWidth, int sHeight)=0;
+		virtual int isReady()=0;
+	};
 
 } /* namespace std */
 
